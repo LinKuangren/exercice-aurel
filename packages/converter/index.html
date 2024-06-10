@@ -7,5 +7,76 @@
 		<title>Convertisseur de devise en ligne</title>
 		<script type="module" src="/src/main.ts" defer></script>
 	</head>
-	<body></body>
+	<body>
+		<div>
+			<h1>Convertisseur de devise</h1>
+			<div>
+				<label>
+					<div>
+						<span>Choisissez la devise.</span>
+					</div>
+					<select id="baseDevise">
+						<option disabled selected>Selectionnez une devise</option>
+					</select>
+				</label>
+				<label>
+					<div>
+						<span>Choisissez une autre devise.</span>
+					</div>
+					<select id="targetDevise">
+						<option disabled selected>Selectionnez une autre devise</option>
+					</select>
+				</label>
+				<label>
+					<div>
+						<span>Choisissez le montant</span>
+					</div>
+					<input type="number" placeholder="50" id="montant"/>
+				</label>
+				<button>Convertir</button>
+				<label>
+					<div>
+						<span>Résultat</span>
+					</div>
+					<input type="number" placeholder="0.17357" id="resultat" disabled/>
+				</label>
+			</div>
+		</div>
+	</body>
+	<script type="module">
+		import {getContent, convertDevise} from './src/main.ts';
+		document.addEventListener("DOMContentLoaded", async (event) => {
+
+			const currencies = await getContent();
+			const selects = document.querySelectorAll('select');
+			const button = document.querySelector('button');
+
+			selects.forEach((currentSelect) => {
+				for (const currencyCode in currencies.data) {
+					const currency = currencies.data[currencyCode];
+					const nouvelleDeviseOption = document.createElement('option');
+					nouvelleDeviseOption.value = currency.code;
+					nouvelleDeviseOption.text = currency.name + " - " + currency.code;
+					currentSelect.add(nouvelleDeviseOption);
+				}
+			});
+	
+			button.addEventListener('click', async(element) => {
+				const baseDevise = document.querySelector('#baseDevise').value;
+				const targetDevise = document.querySelector('#targetDevise').value;
+				const montant = document.querySelector('#montant').value;
+	
+				if(montant <= 0) {
+					alert("Selectionnez une valeur supérieure a 0");
+					return;
+				}
+	
+				const resultApi = await convertDevise(baseDevise, targetDevise);
+				const tauxEchange = resultApi.data[targetDevise]
+				const montantConverti = montant * tauxEchange;
+				const montantConvertiInput = document.querySelector('#resultat');
+				montantConvertiInput.value = montantConverti;
+			});
+		});
+	</script>
 </html>
