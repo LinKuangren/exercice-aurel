@@ -1,0 +1,17 @@
+.formContainer {
+    padding: 20px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form div {
+    margin-bottom: 10px;
+  }
+  
+  button {
+    align-self: flex-start;
+  }
+  

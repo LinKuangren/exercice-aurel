@@ -1,0 +1,14 @@
+.home {
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2em;
+  }
+  
+  a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #646cff;
+  }
+  

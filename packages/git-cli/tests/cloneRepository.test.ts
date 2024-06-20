@@ -13,15 +13,15 @@ describe('GitCli', () => {
       multiselect: jest.fn(),
     };
 
-    mockPrompt.ask.mockResolvedValueOnce('nom-repo');
+    mockPrompt.ask.mockResolvedValueOnce('test');
     mockPrompt.choice.mockResolvedValueOnce('ssh');
-    mockPrompt.ask.mockResolvedValueOnce('dossier-destination');
+    mockPrompt.ask.mockResolvedValueOnce('destination');
 
     const cli = new GitCli(mockPrompt as any);
     await cli.clonerDepot();
 
     expect(mockPrompt.ask).toHaveBeenCalledTimes(2);
     expect(mockPrompt.choice).toHaveBeenCalledTimes(1);
-    expect(execa.command).toHaveBeenCalledWith('git clone git@github.com:nom-repo.git dossier-destination');
+    expect(execa.command).toHaveBeenCalledWith('git clone git@github.com:test.git destination');
   });
 });

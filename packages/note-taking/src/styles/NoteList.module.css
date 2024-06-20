@@ -1,0 +1,23 @@
+.list {
+    margin-top: 20px;
+  }
+  
+  .note {
+    margin-bottom: 10px;
+  }
+  
+  .note h2 {
+    margin: 0;
+    font-size: 1.5em;
+  }
+  
+  .note p {
+    margin: 0;
+  }
+  
+  .note a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #646cff;
+  }
+  
